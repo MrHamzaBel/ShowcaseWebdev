@@ -1,0 +1,17 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.db
+*.db-shm
+*.db-wal
+
+## Node / Vite
+wwwroot-src/node_modules/
+wwwroot-src/dist/
+
+## Secrets (NOOIT committen)
+**/appsettings.secrets.json
+secrets.json

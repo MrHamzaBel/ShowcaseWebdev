@@ -1,0 +1,41 @@
+@model IEnumerable<Showcase_Chat.Models.Message>
+@{
+    ViewData["Title"] = $"Admin – Berichten van {ViewBag.FilteredUser}";
+}
+
+<h2 class="mb-3">Berichten van: <span class="text-primary">@ViewBag.FilteredUser</span></h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="form-label fw-bold">Filter op gebruiker:</label>
+        <div class="list-group">
+            <a asp-action="Index" class="list-group-item list-group-item-action">Alle gebruikers</a>
+            @foreach (var user in ViewBag.Users as IEnumerable<Showcase_Chat.Models.ApplicationUser> ?? [])
+            {
+                <a asp-action="FilterByUser" asp-route-userId="@user.Id"
+                   class="list-group-item list-group-item-action @(user.Id == ViewBag.FilteredUserId ? "active" : "")">
+                    @user.DisplayName
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="list-group" style="max-height:500px;overflow-y:auto">
+            @foreach (var msg in Model)
+            {
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <strong>@msg.Sender.DisplayName</strong>
+                        <small class="text-muted">@msg.CreatedAt.ToLocalTime().ToString("dd-MM-yyyy HH:mm")</small>
+                    </div>
+                    <p class="mb-0">@msg.Content</p>
+                </div>
+            }
+            @if (!Model.Any())
+            {
+                <p class="list-group-item text-muted">Geen berichten gevonden.</p>
+            }
+        </div>
+    </div>
+</div>

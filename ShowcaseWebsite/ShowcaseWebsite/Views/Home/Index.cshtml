@@ -1,0 +1,100 @@
+@{
+    ViewData["Title"] = "CV – Hamza Bel Makhfi";
+}
+
+<div class="row g-4">
+
+    <!-- Sidebar / Personalia -->
+    <div class="col-md-3">
+        <div class="card bg-dark border-secondary text-center p-3 sticky-md-top" style="top: 80px;">
+            <img src="~/images/hamza.png" alt="Foto van Hamza Bel Makhfi"
+                 class="rounded-circle mx-auto d-block mb-3 profile-photo">
+            <h1 class="h5 fw-bold mb-0">Hamza Bel Makhfi</h1>
+            <p class="text-secondary small mb-1">Software Developer</p>
+            <p class="text-secondary small">📍 Nederland</p>
+
+            <hr class="border-secondary">
+
+            <ul class="list-unstyled text-start small text-secondary">
+                <li class="mb-1">🎂 16 september 2001</li>
+                <li class="mb-1">🎓 Windesheim, Zwolle</li>
+                <li class="mb-1">💼 Indo Apps</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hoofd content -->
+    <div class="col-md-9">
+
+        <!-- Profiel -->
+        <section class="mb-4">
+            <h2 class="section-title">Profiel</h2>
+            <p class="text-secondary">
+                Ambitieuze software developer en student aan Windesheim Hogeschool.
+                Passie voor het bouwen van moderne webapplicaties en het oplossen van complexe
+                technische vraagstukken. Combineer studie met praktijkervaring bij Indo Apps.
+            </p>
+        </section>
+
+        <!-- Opleiding -->
+        <section class="mb-4">
+            <h2 class="section-title">Opleiding</h2>
+            <div class="cv-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-0">HBO ICT – Software Engineering</h5>
+                        <p class="text-success small mb-0">Windesheim Hogeschool, Zwolle</p>
+                    </div>
+                    <span class="badge bg-secondary">2022 – heden</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Werkervaring -->
+        <section class="mb-4">
+            <h2 class="section-title">Werkervaring</h2>
+            <div class="cv-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-0">Software Developer (bijbaan)</h5>
+                        <p class="text-success small mb-0">Indo Apps, Nederland</p>
+                        <p class="text-secondary small">
+                            Meewerken aan de ontwikkeling en het onderhoud van mobiele en webapplicaties.
+                        </p>
+                    </div>
+                    <span class="badge bg-secondary">2023 – heden</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vaardigheden -->
+        <section class="mb-4">
+            <h2 class="section-title">Vaardigheden</h2>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div class="card bg-dark border-secondary p-3">
+                        <h6 class="text-success mb-2">Programmeren</h6>
+                        <div class="d-flex flex-wrap gap-1">
+                            @foreach (var skill in new[] { "C#", ".NET 8", "ASP.NET Core", "JavaScript", "Vue 3", "HTML/CSS" })
+                            {
+                                <span class="badge bg-secondary">@skill</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-dark border-secondary p-3">
+                        <h6 class="text-success mb-2">Tools & Databases</h6>
+                        <div class="d-flex flex-wrap gap-1">
+                            @foreach (var skill in new[] { "SQL", "SQLite", "EF Core", "Git", "Visual Studio", "SignalR" })
+                            {
+                                <span class="badge bg-secondary">@skill</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>

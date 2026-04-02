@@ -1,0 +1,21 @@
+@model Enable2FAViewModel
+@{
+    ViewData["Title"] = "2FA Inschakelen";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <h2 class="mb-3">Tweestapsverificatie instellen</h2>
+        <p class="text-muted">Scan de QR-code met je authenticator app (bijv. Google Authenticator of Aegis).</p>
+
+        <div class="text-center my-4">
+            <img src="@Model.QrCodeImageUrl" alt="QR-code voor 2FA" class="border p-2" style="max-width:220px" />
+        </div>
+
+        <p>Of voer deze sleutel handmatig in:</p>
+        <code class="d-block bg-light p-2 rounded mb-4">@Model.SharedKey</code>
+
+        <p>Na het scannen: log opnieuw in en voer je 6-cijferige code in.</p>
+        <a asp-action="Login" class="btn btn-primary">Terug naar inloggen</a>
+    </div>
+</div>

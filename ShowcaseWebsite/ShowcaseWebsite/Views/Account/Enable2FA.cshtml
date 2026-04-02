@@ -1,0 +1,43 @@
+@model ShowcaseWebsite.ViewModels.Enable2FAViewModel
+@{
+    ViewData["Title"] = "2FA inschakelen";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-dark border-secondary p-4">
+            <h1 class="h4 mb-3">Twee-factor authenticatie (TOTP)</h1>
+            <p class="text-secondary small mb-3">
+                Scan de QR-code met Google Authenticator, Microsoft Authenticator of een andere TOTP-app.
+            </p>
+
+            @if (ViewBag.QrCodeBase64 != null)
+            {
+                <div class="text-center mb-3">
+                    <img src="data:image/png;base64,@ViewBag.QrCodeBase64"
+                         alt="QR-code voor authenticator app"
+                         class="img-fluid" style="max-width: 200px; image-rendering: pixelated;" />
+                </div>
+            }
+
+            <p class="small text-secondary">Of voer handmatig in: <code class="text-success">@Model.SharedKey</code></p>
+
+            <form asp-action="Enable2FA" method="post" novalidate>
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="SharedKey" />
+                <input type="hidden" asp-for="AuthenticatorUri" />
+
+                <div class="mb-3">
+                    <label for="code" class="form-label">Verificatiecode</label>
+                    <input type="text" name="code" id="code" inputmode="numeric"
+                           class="form-control bg-dark text-light border-secondary"
+                           placeholder="123456" maxlength="7" />
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <button type="submit" class="btn btn-success w-100">2FA activeren</button>
+            </form>
+        </div>
+    </div>
+</div>

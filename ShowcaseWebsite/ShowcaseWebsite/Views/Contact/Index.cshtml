@@ -1,0 +1,61 @@
+@model ShowcaseWebsite.ViewModels.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <h1 class="mb-4">Contact opnemen</h1>
+
+        <form asp-action="Index" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control bg-dark text-light border-secondary"
+                       placeholder="Uw naam" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control bg-dark text-light border-secondary"
+                       placeholder="uw@email.nl" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Subject" class="form-label"></label>
+                <input asp-for="Subject" class="form-control bg-dark text-light border-secondary"
+                       placeholder="Onderwerp van uw bericht" />
+                <span asp-validation-for="Subject" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Message" class="form-label"></label>
+                <textarea asp-for="Message" rows="6"
+                          class="form-control bg-dark text-light border-secondary"
+                          placeholder="Uw bericht..."></textarea>
+                <span asp-validation-for="Message" class="text-danger small"></span>
+            </div>
+
+            <!-- GDPR akkoord (verplicht) -->
+            <div class="mb-3 form-check">
+                <input asp-for="AcceptPrivacy" class="form-check-input" type="checkbox" />
+                <label asp-for="AcceptPrivacy" class="form-check-label small text-secondary">
+                    Ik ga akkoord met de verwerking van mijn persoonsgegevens conform het
+                    <a href="#" class="text-success">privacybeleid</a>.
+                </label>
+                <div>
+                    <span asp-validation-for="AcceptPrivacy" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Versturen</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

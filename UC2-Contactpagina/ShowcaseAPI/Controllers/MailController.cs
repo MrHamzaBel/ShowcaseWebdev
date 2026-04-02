@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ShowcaseAPI.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Net;
+using System.Net.Mail;
 
 namespace ShowcaseAPI.Controllers
 {
@@ -9,14 +9,56 @@ namespace ShowcaseAPI.Controllers
     [ApiController]
     public class MailController : ControllerBase
     {
-        // POST api/<MailController>
+        private readonly IConfiguration _config;
+        private readonly ILogger<MailController> _logger;
+
+        public MailController(IConfiguration config, ILogger<MailController> logger)
+        {
+            _config = config;
+            _logger = logger;
+        }
+
+        // POST api/mail
+        // Ontvangt contactformulier-data en stuurt een mail via Mailtrap (sandbox)
         [HttpPost]
         public ActionResult Post([Bind("FirstName, LastName, Email, Phone")] Contactform form)
         {
-            //Op brightspace staan instructies over hoe je de mailfunctionaliteit werkend kunt maken:
-            //Project Web Development > De showcase > Week 2: contactpagina (UC2) > Hoe verstuur je een mail vanuit je webapplicatie met Mailtrap?
-            
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                // Lees Mailtrap-credentials uit configuratie (user-secrets in dev, env vars in prod)
+                var host = _config["Mailtrap:Host"] ?? "sandbox.smtp.mailtrap.io";
+                var port = int.Parse(_config["Mailtrap:Port"] ?? "2525");
+                var username = _config["Mailtrap:Username"]
+                    ?? throw new InvalidOperationException("Mailtrap:Username niet geconfigureerd");
+                var password = _config["Mailtrap:Password"]
+                    ?? throw new InvalidOperationException("Mailtrap:Password niet geconfigureerd");
+                var to = _config["Mailtrap:ToAddress"] ?? "ontvanger@example.com";
+
+                var body = $"Nieuw contactverzoek:\n\n" +
+                           $"Naam:     {form.FirstName} {form.LastName}\n" +
+                           $"E-mail:   {form.Email}\n" +
+                           $"Telefoon: {form.Phone}";
+
+                using var client = new SmtpClient(host, port)
+                {
+                    Credentials = new NetworkCredential(username, password),
+                    EnableSsl = true
+                };
+
+                client.Send("noreply@showcase.nl", to, "Contactformulier inzending", body);
+
+                _logger.LogInformation("Mail verstuurd voor {Email}", form.Email);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Log de fout intern; stuur GEEN details naar de client (geen stack trace)
+                _logger.LogError(ex, "Fout bij versturen mail");
+                return StatusCode(500, "Er is een fout opgetreden bij het versturen van de mail.");
+            }
         }
     }
 }

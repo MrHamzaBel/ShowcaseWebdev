@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-5 fw-bold">ShowcaseChat</h1>
+    <p class="lead">Een realtime chatsysteem gebouwd met ASP.NET Core, SignalR en Vue 3.</p>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-controller="Chat" asp-action="Index" class="btn btn-primary btn-lg me-2">Naar de chat</a>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg me-2">Inloggen</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg">Registreren</a>
+    }
+</div>

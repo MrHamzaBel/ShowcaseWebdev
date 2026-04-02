@@ -1,0 +1,43 @@
+@using ShowcaseWebsite.Models
+@model List<Message>
+@{
+    ViewData["Title"] = "Chat";
+    // Geef de inlognaam door aan Vue via een data-attribuut (nooit via inline-JS string interpolatie om XSS te voorkomen)
+    var currentUser = User.Identity?.Name ?? "";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="h4 mb-3">Live chat</h1>
+
+        <!-- Vue-mount punt. data-* attribuut is veilig (HTML-encoded door Razor) -->
+        <div id="chat-app"
+             data-username="@currentUser"
+             data-hub-url="/chathub">
+        </div>
+
+        <!-- noscript fallback: toon de berichten als statische HTML -->
+        <noscript>
+            <div class="card bg-dark border-secondary p-3">
+                <p class="text-warning small">JavaScript is uitgeschakeld. Realtime chat is niet beschikbaar.</p>
+                <ul class="list-unstyled">
+                    @foreach (var msg in Model)
+                    {
+                        <li class="mb-2">
+                            <span class="text-success fw-bold">@msg.UserName</span>
+                            <span class="text-secondary small ms-1">@msg.SentAt.ToLocalTime().ToString("HH:mm")</span>
+                            <p class="mb-0">@msg.Content</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </noscript>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- SignalR client -->
+    <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.0/dist/browser/signalr.min.js"></script>
+    <!-- Vite-gebouwde Vue chat-component -->
+    <script type="module" src="~/js/chat-app.js"></script>
+}

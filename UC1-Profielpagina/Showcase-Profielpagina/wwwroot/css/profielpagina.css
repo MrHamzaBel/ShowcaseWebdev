@@ -106,3 +106,36 @@
 
 
 /*student uitwerking*/
+
+.person-title {
+    font-size: 16px;
+    color: #5c6166;
+    margin: 0;
+}
+
+.person-location {
+    font-size: 14px;
+    color: #5c6166;
+    margin: 4px 0 10px 0;
+}
+
+.profile-content__description {
+    font-size: 15px;
+    color: #444;
+    margin-top: 4px;
+}
+
+@media only screen and (min-width: 800px) {
+    .personalia {
+        width: 280px;
+        min-width: 280px;
+        min-height: 100vh;
+    }
+
+    .person-logo {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        margin-top: 30px;
+    }
+}

@@ -1,0 +1,9 @@
+/* Globale stijlen voor ShowcaseChat */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.footer {
+    padding: 10px 0;
+    font-size: 13px;
+}

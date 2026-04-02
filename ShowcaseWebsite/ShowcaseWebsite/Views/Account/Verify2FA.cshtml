@@ -1,0 +1,34 @@
+@model ShowcaseWebsite.ViewModels.Verify2FAViewModel
+@{
+    ViewData["Title"] = "2FA verificatie";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card bg-dark border-secondary p-4">
+            <h1 class="h4 mb-3">Verificatiecode invoeren</h1>
+            <p class="text-secondary small">
+                Open uw authenticator-app en voer de 6-cijferige code in.
+            </p>
+
+            <form asp-action="Verify2FA" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="Code" class="form-label"></label>
+                    <input asp-for="Code" class="form-control bg-dark text-light border-secondary"
+                           placeholder="123456" inputmode="numeric" maxlength="7" autofocus />
+                    <span asp-validation-for="Code" class="text-danger small"></span>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <button type="submit" class="btn btn-primary w-100">Verifiëren</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

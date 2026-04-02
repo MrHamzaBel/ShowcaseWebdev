@@ -1,0 +1,25 @@
+@model Verify2FAViewModel
+@{
+    ViewData["Title"] = "Verificatiecode invoeren";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <h2 class="mb-4">Tweestapsverificatie</h2>
+        <p class="text-muted">Voer de 6-cijferige code uit je authenticator app in.</p>
+
+        <form asp-action="Verify2FA" method="post">
+            <input asp-for="RememberMe" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Code" class="form-label"></label>
+                <input asp-for="Code" class="form-control" autocomplete="one-time-code"
+                       inputmode="numeric" maxlength="7" placeholder="123456" />
+                <span asp-validation-for="Code" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Verifiëren</button>
+        </form>
+    </div>
+</div>

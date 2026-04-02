@@ -1,0 +1,58 @@
+@model ShowcaseWebsite.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Registreren";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card bg-dark border-secondary p-4">
+            <h1 class="h4 mb-4">Nieuw account aanmaken</h1>
+
+            <form asp-action="Register" method="post" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="DisplayName" class="form-label"></label>
+                    <input asp-for="DisplayName" class="form-control bg-dark text-light border-secondary"
+                           placeholder="Uw naam" />
+                    <span asp-validation-for="DisplayName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control bg-dark text-light border-secondary"
+                           placeholder="uw@email.nl" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control bg-dark text-light border-secondary"
+                           placeholder="Minimaal 8 tekens" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control bg-dark text-light border-secondary"
+                           placeholder="Herhaal wachtwoord" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <button type="submit" class="btn btn-primary w-100">Registreren</button>
+            </form>
+
+            <hr class="border-secondary my-3">
+            <p class="text-center small text-secondary">
+                Al een account?
+                <a asp-action="Login" class="text-success">Inloggen</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

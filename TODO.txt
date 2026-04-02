@@ -1,0 +1,40 @@
+# 1. UC2 Mailtrap wachtwoord instellen
+  cd UC2-Contactpagina/ShowcaseAPI
+  dotnet user-secrets set "Mailtrap:Username" "b854595246ec99"
+  dotnet user-secrets set "Mailtrap:Password" "JOUW_ECHTE_WACHTWOORD"
+
+  # 2. UC3 bootstrap + migrations
+  cd UC3-Chatsysteem/Showcase-Chat
+  dotnet restore
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+  dotnet user-secrets set "AdminSeed:Email" "admin@showcase.nl"
+  dotnet user-secrets set "AdminSeed:Password" "Admin@1234!"
+
+  # 3. Vite frontend bouwen
+  cd wwwroot-src
+  npm install
+  npm run build
+
+  # 4. SignalR JS client kopiëren naar wwwroot/lib
+  # (of installeren via libman: libman install @microsoft/signalr)
+
+  Volgende stappen om op te starten
+
+  # 1. Migraties aanmaken (vereist .NET 8 SDK)
+  cd ShowcaseWebsite/ShowcaseWebsite
+  dotnet ef migrations add Init
+  dotnet ef database update
+
+  # 2. Mailtrap credentials instellen (user-secrets, NIET appsettings)
+  dotnet user-secrets set "Mailtrap:Username" "b854595246ec99"
+  dotnet user-secrets set "Mailtrap:Password" "<jouw_wachtwoord>"
+
+  # 3. Vue/Vite bouwen
+  cd ../../wwwroot-src
+  npm install
+  npm run build
+
+  # 4. Opstarten
+  cd ../ShowcaseWebsite
+  dotnet run
