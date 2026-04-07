@@ -1,33 +1,65 @@
 @using ShowcaseWebsite.Models
 @model List<Message>
 @{
-    ViewData["Title"] = "Admin – Alle berichten";
+    ViewData["Title"] = "Admin dashboard";
+    int totalMessages = Model.Count;
+    int totalUsers = ViewBag.UserCount ?? 0;
+    var lastMsg = Model.LastOrDefault();
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h4 mb-0">Admin dashboard – berichten</h1>
-    <a asp-action="FilterByUser" class="btn btn-sm btn-outline-secondary">Filter op gebruiker</a>
+<div class="mb-4">
+    <h1 class="h4 fw-bold mb-1">Beheerderspaneel</h1>
+    <p class="text-secondary small mb-0">Overzicht van alle gebruikers en chatberichten.</p>
 </div>
 
+<!-- Statistieken -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-4">
+        <div class="card border-0 p-3" style="background-color:#16213e;">
+            <p class="text-secondary small mb-1 text-uppercase" style="letter-spacing:.05em;">Berichten totaal</p>
+            <p class="fw-bold fs-3 mb-0" style="color:#4ade80;">@totalMessages</p>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-0 p-3" style="background-color:#16213e;">
+            <p class="text-secondary small mb-1 text-uppercase" style="letter-spacing:.05em;">Gebruikers</p>
+            <p class="fw-bold fs-3 mb-0" style="color:#4ade80;">@totalUsers</p>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-0 p-3" style="background-color:#16213e;">
+            <p class="text-secondary small mb-1 text-uppercase" style="letter-spacing:.05em;">Laatste bericht</p>
+            <p class="fw-bold mb-0 small">
+                @(lastMsg != null ? lastMsg.SentAt.ToLocalTime().ToString("dd-MM-yyyy HH:mm") : "—")
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Acties -->
+<div class="d-flex gap-2 mb-4">
+    <a asp-action="FilterByUser" class="btn btn-sm btn-outline-light">Filter op gebruiker</a>
+</div>
+
+<!-- Berichtentabel -->
 <div class="table-responsive">
-    <table class="table table-dark table-bordered table-hover table-sm">
-        <thead class="table-secondary text-dark">
-            <tr>
-                <th>#</th>
+    <table class="table table-dark table-bordered table-hover table-sm align-middle">
+        <thead>
+            <tr class="text-secondary small text-uppercase">
+                <th style="width:50px;">#</th>
                 <th>Gebruiker</th>
                 <th>Bericht</th>
-                <th>Tijdstip</th>
+                <th style="width:160px;">Tijdstip</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var msg in Model)
             {
                 <tr>
-                    <td>@msg.Id</td>
-                    <td class="text-success">@msg.UserName</td>
-                    <!-- @msg.Content wordt automatisch door Razor ge-HTML-encoded (XSS-bescherming) -->
+                    <td class="text-secondary">@msg.Id</td>
+                    <td class="fw-semibold" style="color:#4ade80;">@msg.UserName</td>
                     <td>@msg.Content</td>
-                    <td class="text-secondary small">@msg.SentAt.ToLocalTime().ToString("dd-MM-yyyy HH:mm")</td>
+                    <td class="text-secondary small">@msg.SentAt.ToLocalTime().ToString("dd-MM HH:mm")</td>
                 </tr>
             }
         </tbody>
@@ -36,5 +68,5 @@
 
 @if (!Model.Any())
 {
-    <p class="text-secondary">Geen berichten gevonden.</p>
+    <p class="text-secondary mt-3">Er zijn nog geen berichten.</p>
 }

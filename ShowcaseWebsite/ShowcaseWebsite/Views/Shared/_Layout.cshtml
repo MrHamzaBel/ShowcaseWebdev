@@ -42,13 +42,11 @@
                 }
                 @if (User.IsInRole("Admin"))
                 {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown">Admin</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Alle berichten</a></li>
-                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="FilterByUser">Filter op gebruiker</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="FilterByUser">Filter</a>
                     </li>
                 }
             </ul>

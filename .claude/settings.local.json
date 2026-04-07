@@ -6,7 +6,13 @@
       "Bash(cd /c/ShowcaseWebdev/UC1-Profielpagina && dotnet build Showcase-Profielpagina.sln --nologo -q 2>&1)",
       "Bash(tail:*)",
       "Bash(cd:*)",
-      "Bash(export:*)"
+      "Bash(export:*)",
+      "Bash(sed:*)",
+      "Bash(python3:*)",
+      "Bash(echo no python:*)",
+      "Bash(py:*)",
+      "Bash(echo === FILE: $docx ===:*)",
+      "Bash(curl:*)"
     ]
   }
 }

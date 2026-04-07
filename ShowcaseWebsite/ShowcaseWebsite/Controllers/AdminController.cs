@@ -25,6 +25,7 @@ public class AdminController : Controller
     public async Task<IActionResult> Index()
     {
         var messages = await _messages.GetRecentAsync(200);
+        ViewBag.UserCount = _userManager.Users.Count();
         return View(messages);
     }
 
