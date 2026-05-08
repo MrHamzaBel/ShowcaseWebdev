@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/hamza/ShowcaseWebdev/**)",
+      "Read(//c/Users/hamza/AppData/Roaming/NuGet\" 2>/dev/**)",
+      "Read(//c/Users/hamza/**)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}
