@@ -1,7 +1,7 @@
 # 1. UC2 Mailtrap wachtwoord instellen
   cd UC2-Contactpagina/ShowcaseAPI
   dotnet user-secrets set "Mailtrap:Username" "b854595246ec99"
-  dotnet user-secrets set "Mailtrap:Password" "JOUW_ECHTE_WACHTWOORD"
+  dotnet user-secrets set "Mailtrap:Password" "0857f9fdb6c34d"
 
   # 2. UC3 bootstrap + migrations
   cd UC3-Chatsysteem/Showcase-Chat
